@@ -11,16 +11,24 @@ function getRepoContributors(repoOwner, repoName, callback) {
     }
   }
   request.get(requestURL, requestOption, function(error, response, body) {
-        console.log(body);
+        var data = JSON.parse(body);
+        callback(data);
   });
+
 }
 
+// getRepoContributors("jquery", "jquery", function(err, result) {
+//   console.log("Errors:", err);
+//   console.log("Result:", result);
+// });
 
-getRepoContributors("jquery", "jquery", function(err, result) {
-  console.log("Errors:", err);
-  console.log("Result:", result);
-});
+getRepoContributors("jquery", "jquery", findAvatar);
 
+function findAvatar(someJSONthing) {
+  someJSONthing.forEach(function(contributor) {
+    console.log(contributor["avatar_url"]);
+  });
+};
 
 // function getOptions(path) {
 //   return options = {
