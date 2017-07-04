@@ -2,12 +2,17 @@ var request = require('request');
 
 console.log('Welcome to the GitHub Avatar Downloader!');
 
-const user = process.env.GITHUB_USER;
-const token = process.env.GITHUB_ACCESS_TOKEN;
 
 function getRepoContributors(repoOwner, repoName, callback) {
-  var requestURL = 'https://' + user + ':' + token + '@api.github.com/repos/' + repoOwner + '/' + repoName + '/contributors';
-  console.log(requestURL);
+  var requestURL = 'https://' + process.env.GITHUB_USER + ':' + process.env.GITHUB_ACCESS_TOKEN + '@api.github.com/repos/' + repoOwner + '/' + repoName + '/contributors';
+  var requestOption = {
+    headers: {
+      'User-Agent': "GitHub Avatar Downloader - Student Project"
+    }
+  }
+  request.get(requestURL, requestOption, function(error, response, body) {
+        console.log(body);
+  });
 }
 
 
@@ -15,3 +20,30 @@ getRepoContributors("jquery", "jquery", function(err, result) {
   console.log("Errors:", err);
   console.log("Result:", result);
 });
+
+
+// function getOptions(path) {
+//   return options = {
+//     url: 'https://api.github.com' + path,
+//     headers: {
+//       'User-Agent': 'kittenfingers'
+//     },
+//     qs: {
+//       access_token: process.env.GITHUB_ACCESS_TOKEN
+//     }
+//   };
+// }
+
+
+// request.get('https://sytantris.github.io/http-examples/future.jpg')
+//        .on('error', function (err) {
+//          throw err;
+//        })
+//        .on('response', function (response) {
+//           console.log('Response Status Code: ', response.statusCode, ' Response Status Message: ', response.statusMessage, ' Content type: ', response.headers['content-type']);
+//           console.log('Downloading image...');
+//        })
+//        .pipe(fs.createWriteStream('./future.jpg'))
+//        .on('finish', function () {
+//           console.log('Download complete.');
+//        });
