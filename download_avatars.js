@@ -36,5 +36,6 @@ function findAvatar(someJSONthing) {
 };
 
 
-//calling the function on the "jquery" repo:
-getRepoContributors("jquery", "jquery", findAvatar);
+//now calling the function, and accepting command line arguments for the author and repo:
+getRepoContributors(`${process.argv[2]}`, `${process.argv[3]}`, findAvatar);
+
