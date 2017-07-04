@@ -9,6 +9,16 @@ console.log('Welcome to the GitHub Avatar Downloader!');
 
 //OG function:
 function getRepoContributors(repoOwner, repoName, callback) {
+  console.log(repoOwner);
+  console.log(repoName);
+  if (repoOwner === 'undefined') {
+    console.log('Name of repository owner REQUIRED');
+    return;
+  }
+  if (repoName === 'undefined') {
+    console.log('Name of repository REQUIRED');
+    return;
+  }
   var requestURL = 'https://' + process.env.GITHUB_USER + ':' + process.env.GITHUB_ACCESS_TOKEN + '@api.github.com/repos/' + repoOwner + '/' + repoName + '/contributors';
   var requestOption = {
     headers: {
